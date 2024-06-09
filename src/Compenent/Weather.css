@@ -1,0 +1,142 @@
+.search-container form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+.search-container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    align-items: center;
+}
+.search-container button{
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.input-field input,
+.button-container button {
+  width: 100%;
+  font-size: 25px;
+  padding: 10px 20px;
+}
+
+button {
+  background-color: black;
+  color: white;
+  font-weight: 700;
+}
+button:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+.input-field ::placeholder {
+  text-align: center;
+  font-weight: 600;
+  color: black;
+}
+.weather-card-section {
+  padding: 15px;
+  width: 40%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  border-radius: 25px;
+  border: 2px solid white;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  gap: 59px;
+}
+.parent-container {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 20px;
+}
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.dark-mode {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+
+.dark-mode .weather-card-body {
+  
+  color: #ecf0f1;
+}
+
+.dark-mode button:hover {
+  background-color: white;
+}
+.loading-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 24px;
+}
+  .error-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-weight: 800;
+    font-size: 24px;
+  }
+  /* style for mobile view */
+  @media only screen and (max-width:767px)  {
+    .weather-card-section{
+      width: 100%;
+      margin: 10px;
+    }
+    .search-container{
+      flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    }
+    .search-container form{
+      margin: 10px;
+    }
+    .input-field input{
+      font-size: 15px;
+    }
+    .button-container button{
+      font-size: 15px;
+    }
+    .card-content{
+      font-size: 17px;
+      
+    }
+    .search-container{
+      margin-top: 20px;
+    }
+
+    
+  }
+/* style fo tablet view */
+  @media only screen and (min-width:768) and (max-width:1020px) {
+    .weather-card-section{
+      width: 100%;
+    margin: 20px;
+    }
+  }
