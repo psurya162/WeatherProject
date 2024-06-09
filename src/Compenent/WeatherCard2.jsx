@@ -8,11 +8,11 @@ import Header from "./Header";
 const API_KEY = "adde523218dc181ec91c00b21a3712b2";
 
 const WeatherCard2 = () => {
-  const [city, setCity] = useState(""); // State to store the city name
-  const [weatherList, setWeatherList] = useState([]); // State to store multiple weather data objects
-  const [loading, setLoading] = useState(false); // State to manage loading state
-  const [error, setError] = useState(null); // State to store error messages
-  const [darkMode, setDarkMode] = useState(false); // State to manage dark mode
+  const [city, setCity] = useState("");
+  const [weatherList, setWeatherList] = useState([]); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(null); 
+  const [darkMode, setDarkMode] = useState(false); 
 
   // Function to fetch weather data from OpenWeatherMap API
   const fetchWeatherApi = async (cityName) => {
@@ -21,17 +21,17 @@ const WeatherCard2 = () => {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
       );
-      const data = response.data; // Extract data from response
-      setWeatherList((prevWeatherList) => [...prevWeatherList, data]); // Add new weather data to the list
-      setLoading(false); // Set loading to false after fetching data
-      setError(null); // Clear any previous errors
+      const data = response.data; 
+      setWeatherList((prevWeatherList) => [...prevWeatherList, data]);
+      setLoading(false); 
+      setError(null);
     } catch (err) {
       if (!err.response) {
-        setError("Network error"); // Handle network errors
+        setError("Network error"); 
       } else {
-        setError(err.response.data.message); // Handle API errors
+        setError(err.response.data.message); 
       }
-      setLoading(false); // Set loading to false in case of error
+      setLoading(false); 
     }
   };
 
@@ -39,23 +39,27 @@ const WeatherCard2 = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (!city) {
-      alert("Please enter city name"); // Alert if city name is not entered
+      alert("Please enter city name");
     } else {
-      fetchWeatherApi(city); // Fetch weather data for entered city
-      setCity(""); // Clear input field after search
+      fetchWeatherApi(city); 
+      setCity(""); 
     }
   };
 
   // Function to handle change in input field
   const handleChange = (e) => {
-    setCity(e.target.value); // Update city state with input value
+    setCity(e.target.value); 
   };
 
   // Function to toggle dark mode
   const toggleTheme = () => {
-    setDarkMode(!darkMode); // Toggle dark mode state
-    document.body.classList.toggle("dark-mode"); // Toggle dark mode class on body
+    setDarkMode(!darkMode);
+    document.body.classList.toggle("dark-mode"); 
   };
+
+  const clearWheatherlist=()=>{
+    setWeatherList([])
+  }
 
   return (
     <>
@@ -79,6 +83,7 @@ const WeatherCard2 = () => {
             <button onClick={toggleTheme}>
               {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             </button>
+            <button onClick={clearWheatherlist}>Clear The List</button>
           </div>
         </div>
         <div className="loading-section">{loading && <p>Loading...</p>}</div>
