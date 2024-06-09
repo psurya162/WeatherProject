@@ -8,56 +8,53 @@ import Header from "./Header";
 const API_KEY = "adde523218dc181ec91c00b21a3712b2";
 
 const WeatherCard2 = () => {
-  const [city, setCity] = useState(""); //
-  const [weather, setWeather] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [darkMode, setDarkMode] = useState(false);
+  const [city, setCity] = useState(""); // State to store the city name
+  const [weatherList, setWeatherList] = useState([]); // State to store multiple weather data objects
+  const [loading, setLoading] = useState(false); // State to manage loading state
+  const [error, setError] = useState(null); // State to store error messages
+  const [darkMode, setDarkMode] = useState(false); // State to manage dark mode
 
-
-// Function to fetchweatherapi from openweatherMap api
+  // Function to fetch weather data from OpenWeatherMap API
   const fetchWeatherApi = async (cityName) => {
     try {
-      setLoading(true);
+      setLoading(true); // Set loading to true while fetching data
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
       );
-      const data = response.data;
-      setWeather(data);
-      setLoading(false);
-      setError(null);
+      const data = response.data; // Extract data from response
+      setWeatherList((prevWeatherList) => [...prevWeatherList, data]); // Add new weather data to the list
+      setLoading(false); // Set loading to false after fetching data
+      setError(null); // Clear any previous errors
     } catch (err) {
       if (!err.response) {
-        setError("Network error");
+        setError("Network error"); // Handle network errors
       } else {
-        setError(err.response.data.message);
+        setError(err.response.data.message); // Handle API errors
       }
-      setLoading(false);
-      setWeather(null);
+      setLoading(false); // Set loading to false in case of error
     }
   };
-//function to handle the form submission for city
+
+  // Function to handle form submission for city
   const handleSearch = (e) => {
     e.preventDefault();
     if (!city) {
-      alert("Please enter city name");
+      alert("Please enter city name"); // Alert if city name is not entered
     } else {
-      fetchWeatherApi(city);
-      setCity("")
+      fetchWeatherApi(city); // Fetch weather data for entered city
+      setCity(""); // Clear input field after search
     }
   };
 
-  //function to handleChange of input field
+  // Function to handle change in input field
   const handleChange = (e) => {
-    setCity(e.target.value);
+    setCity(e.target.value); // Update city state with input value
   };
 
-
-  //function  of toggle 
+  // Function to toggle dark mode
   const toggleTheme = () => {
-    setDarkMode(!darkMode);
-    
-    document.body.classList.toggle("dark-mode");
+    setDarkMode(!darkMode); // Toggle dark mode state
+    document.body.classList.toggle("dark-mode"); // Toggle dark mode class on body
   };
 
   return (
@@ -78,21 +75,20 @@ const WeatherCard2 = () => {
               <button type="submit">Search</button>
             </div>
           </form>
-          <div className="toogle-btn">
-          <button onClick={toggleTheme}>
-            {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-          </button>
+          <div className="toggle-btn">
+            <button onClick={toggleTheme}>
+              {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            </button>
           </div>
         </div>
         <div className="loading-section">{loading && <p>Loading...</p>}</div>
         <div className="error-section">{error && <p>{error}</p>}</div>
-        {weather && (
-          <div className="parent-container">
-            <div className="weather-card-section">
+        <div className="parent-container">
+          {weatherList.map((weather, index) => (
+            <div key={index} className="weather-card-section">
               <div className="weather-card-body">
                 <div className="card-header">
                   <h2>{weather.name}</h2>
-               
                 </div>
                 <div className="card-content">
                   <p><FontAwesomeIcon icon={faWind} /> Speed: {weather.wind.speed}</p>
@@ -103,8 +99,8 @@ const WeatherCard2 = () => {
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          ))}
+        </div>
       </div>
     </>
   );
