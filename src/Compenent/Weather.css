@@ -134,7 +134,7 @@ body {
     
   }
 /* style fo tablet view */
-  @media only screen and (min-width:768) and (max-width:1020px) {
+  @media only screen and (min-width:768px) and (max-width:1020px) {
     .weather-card-section{
       width: 100%;
     margin: 20px;
